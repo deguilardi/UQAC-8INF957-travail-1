@@ -10,7 +10,7 @@ Original french instructions file can be found (here)[https://raw.githubusercont
 * Submission date: week 6 (October 6)
 * Language: Java
 * Discount by Teams
-⋅⋅* A single project, compiled and functional
+  * A single project, compiled and functional
   * The class diagram of your solution
 
 ## eCommerce - Spacial Commerce
