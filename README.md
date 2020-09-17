@@ -11,7 +11,7 @@ Original french instructions file can be found (here)[https://raw.githubusercont
 * Language: Java
 * Discount by Teams
 ⋅⋅* A single project, compiled and functional
-..* The class diagram of your solution
+  * The class diagram of your solution
 
 ## eCommerce - Spacial Commerce
 
@@ -68,13 +68,13 @@ View reports
 5. If the maximum port capacity of a planet is reached, the ships must remain "on hold" for a place and will be able to access the port in a subsequent cycle
 6. A port can accommodate a single countainer and a second can be placed on hold. If the carrying capacity of a planet is exceeded, the ship must abruptly leave commercial space (handled in this case as a commercial exception).
 * The duration of operations (there is no partial cycle)
-..* Dangerous products
-....* Load 20T (1 cycle)
-....* Discharge 10T (1 cycle)
-..* Regular products
-....* Charge 50T (1 cycle)
-....* Discharge 25T (1 cycle)
-..* Spacing between planets (1 cycle)
+  * Dangerous products
+    * Load 20T (1 cycle)
+    * Discharge 10T (1 cycle)
+  * Regular products
+    * Charge 50T (1 cycle)
+    * Discharge 25T (1 cycle)
+  * Spacing between planets (1 cycle)
 
 ### Constraints
 
