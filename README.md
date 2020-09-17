@@ -2,7 +2,7 @@
 
 8INF957: Advanced object programming
 
-Original french instructions file can be found (here)[https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-1/master/assets/travail_bloc_A_eCOMMERCE_a2020.pdf].
+Original french instructions file can be found [here](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-1/master/assets/travail_bloc_A_eCOMMERCE_a2020.pdf).
 
 ## Instructions
 
