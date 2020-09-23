@@ -7,7 +7,7 @@ public class Product {
     private Float price;
     private Menacing menacing;
 
-    enum Menacing {
+    public enum Menacing {
         REGULAR,
         DANGEROUS
     }

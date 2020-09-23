@@ -1,5 +1,9 @@
 package ca.uqac.ecommerce;
 
+import ca.uqac.ecommerce.party.*;
+
+import java.util.ArrayList;
+
 /**
  * - There are several planets (at least 5 in our example);
  * - Each cycle, new ships may appear to perform eCommerce;
@@ -17,7 +21,36 @@ package ca.uqac.ecommerce;
  */
 public class CommercialSpace {
 
-    public static void main(String[] args){
-        // @TODO
+    private final ArrayList<Spaceship> spaceships = new ArrayList<>();
+
+    public void initialize(){
+        // Set some products
+        Product gravel = new Product("gravel", 10, 1.0f, Product.Menacing.REGULAR);
+        Product tires = new Product("tires", 3, 12.75f, Product.Menacing.REGULAR);
+        Product acid = new Product("acid", 4, 7.5f, Product.Menacing.DANGEROUS);
+
+        // Init spaceships
+        // Cruise
+        ArrayList<Container> cruiseShipContainers = new ArrayList<>();
+        cruiseShipContainers.add(new Container(gravel, 30, 30));
+        spaceships.add(new CruiseShip(cruiseShipContainers));
+        // Millenial
+        ArrayList<Container> millenialShipContainers = new ArrayList<>();
+        millenialShipContainers.add(new Container(tires, 20, 20));
+        spaceships.add(new MillenialShip(millenialShipContainers));
+        // Ultra
+        ArrayList<Container> ultraShipContainers = new ArrayList<>();
+        ultraShipContainers.add(new Container(tires, 20, 20));
+        ultraShipContainers.add(new Container(acid, 10, 10));
+        spaceships.add(new UltraShip(ultraShipContainers));
+
+        // Report spaceships
+        System.out.println("[Init] spaceships");
+        reportSpaceships();
+    }
+
+    private void reportSpaceships(){
+        System.out.println("[Reporting] spaceships");
+        spaceships.forEach(Party::report);
     }
 }

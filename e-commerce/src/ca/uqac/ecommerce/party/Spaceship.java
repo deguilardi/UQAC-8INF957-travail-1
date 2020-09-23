@@ -1,5 +1,7 @@
 package ca.uqac.ecommerce.party;
 
+import java.util.ArrayList;
+
 /**
  * - There are several types (to simplify our example, let's say 3);
  * - Each ship can carry certain products determined during its creation
@@ -43,7 +45,7 @@ public class Spaceship extends Party {
         }
     }
 
-    public Spaceship(Container[] containers) {
+    public Spaceship(ArrayList<Container> containers) {
         super(containers);
     }
 
