@@ -1,5 +1,21 @@
 package ca.uqac.ecommerce.party;
 
+/**
+ * - There are several types (to simplify our example, let's say 3);
+ * - Each ship can carry certain products determined during its creation
+ *   and has a certain load capacity (For example, shipA can carry 30T of
+ *   product1, 20T of product2 and 10T of product3). Ships can't change
+ *   their products type.;
+ * - There are two main categories of products (dangerous and regular);
+ * - Each spaceship has its particular route which is set dynamically
+ *   during its creation and does not change;
+ * - A ship can load products and unload products;
+ * - It can be asked to provide a “transport report” that displays all
+ *   transactions made;
+ * - A ship trades a certain number of cycles. Subsequently, it quits
+ *   eCommerce (but will still be included in the balance sheet report);
+ * - You can make additions as needed.
+ */
 public class Spaceship extends Party {
 
     private Integer totalCapacity;

@@ -1,5 +1,17 @@
 package ca.uqac.ecommerce.party;
 
+/**
+ * - Each planet has different resources (products) varying in quantity/limit
+ *   defined when loading at commercial space;
+ * - A planet sells products that are loaded into ships;
+ * - A planet buys products that are unloaded from ships;
+ * - It can be requested to provide a “transaction report” that displays
+ *   all transactions made;
+ * - The planets are not related to each other;
+ * - Each planet has between one and three ports and can only accommodate
+ *   one ship per port (and one in waiting. To see further);
+ * - Additions can be made as needed.
+ */
 public class Planet {
 
     private Integer numOfPorts;
