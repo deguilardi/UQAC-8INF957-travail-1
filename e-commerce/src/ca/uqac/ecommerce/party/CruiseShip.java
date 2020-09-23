@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CruiseShip extends Spaceship{
 
-    public CruiseShip(ArrayList<Container> containers) {
-        super(containers);
+    public CruiseShip(String name, ArrayList<Container> containers) {
+        super(name, containers);
     }
 }

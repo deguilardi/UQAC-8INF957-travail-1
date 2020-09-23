@@ -33,16 +33,16 @@ public class CommercialSpace {
         // Cruise
         ArrayList<Container> cruiseShipContainers = new ArrayList<>();
         cruiseShipContainers.add(new Container(gravel, 30, 30));
-        spaceships.add(new CruiseShip(cruiseShipContainers));
+        spaceships.add(new CruiseShip("cruise", cruiseShipContainers));
         // Millenial
         ArrayList<Container> millenialShipContainers = new ArrayList<>();
         millenialShipContainers.add(new Container(tires, 20, 20));
-        spaceships.add(new MillenialShip(millenialShipContainers));
+        spaceships.add(new MillenialShip("millenial", millenialShipContainers));
         // Ultra
         ArrayList<Container> ultraShipContainers = new ArrayList<>();
         ultraShipContainers.add(new Container(tires, 20, 20));
         ultraShipContainers.add(new Container(acid, 10, 10));
-        spaceships.add(new UltraShip(ultraShipContainers));
+        spaceships.add(new UltraShip("ultra", ultraShipContainers));
 
         // Report spaceships
         System.out.println("[Init] spaceships");

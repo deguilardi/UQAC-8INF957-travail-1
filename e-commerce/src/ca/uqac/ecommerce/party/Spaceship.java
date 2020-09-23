@@ -45,8 +45,8 @@ public class Spaceship extends Party {
         }
     }
 
-    public Spaceship(ArrayList<Container> containers) {
-        super(containers);
+    public Spaceship(String name, ArrayList<Container> containers) {
+        super(name, containers);
     }
 
     private Integer calculateTotalCapacity(){

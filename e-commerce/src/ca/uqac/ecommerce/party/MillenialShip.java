@@ -6,8 +6,8 @@ public class MillenialShip extends Spaceship{
 
     private Boolean speedlightActive;
 
-    public MillenialShip(ArrayList<Container> containers) {
-        super(containers);
+    public MillenialShip(String name, ArrayList<Container> containers) {
+        super(name, containers);
     }
 
     protected Boolean activateSpeedlight(){

@@ -12,7 +12,8 @@ public class Party {
     private Transaction transactions[];
     private Report report;
 
-    public Party(ArrayList<Container> containers) {
+    public Party(String name, ArrayList<Container> containers) {
+        this.name = name;
         this.containers = containers;
         this.report = new ScreenReport();
     }
@@ -28,7 +29,7 @@ public class Party {
     }
 
     public void report(){
-        // @TODO
+        report.generateReport(this);
     }
 
     public String getName() {
