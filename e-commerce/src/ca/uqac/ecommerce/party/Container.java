@@ -35,4 +35,14 @@ public class Container {
     public void setLoad(Integer load) {
         this.load = load;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("[container]")
+                .append(" product:").append(product.getName())
+                .append(", capacity:").append(capacity.toString())
+                .append(", load:").append(load.toString())
+                .toString();
+    }
 }

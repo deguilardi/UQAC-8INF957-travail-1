@@ -13,9 +13,11 @@ public class ScreenReport implements Report{
     @Override
     public void generateReport(Party party) {
         StringBuilder sb = new StringBuilder()
-                .append("[ScreenReport][party]")
-                .append("\r\n  name:")
-                .append(party.getName());
+                .append("    ").append(party.toString());
+        party.getContainers().forEach(container -> {
+            sb.append("\r\n        ");
+            sb.append(container.toString());
+        });
         System.out.println(sb);
     }
 }

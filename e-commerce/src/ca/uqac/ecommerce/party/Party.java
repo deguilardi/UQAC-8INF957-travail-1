@@ -47,4 +47,12 @@ public class Party {
     public void setContainers(ArrayList<Container> containers) {
         this.containers = containers;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("[party]")
+                .append(" name:").append(name)
+                .toString();
+    }
 }
