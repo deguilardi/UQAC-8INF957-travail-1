@@ -5,6 +5,8 @@ import ca.uqac.ecommerce.party.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static ca.uqac.ecommerce.party.PartyConstants.*;
+
 /**
  * - There are several planets (at least 5 in our example);
  * - Each cycle, new ships may appear to perform eCommerce;
@@ -28,43 +30,43 @@ public class CommercialSpace {
 
     public void initialize(){
         // Init products
-        products.put("gravel", new Product("gravel", 10, 1.0f, Product.Menacing.REGULAR));
-        products.put("tires", new Product("tires", 3, 12.75f, Product.Menacing.REGULAR));
-        products.put("acid", new Product("acid", 4, 7.5f, Product.Menacing.DANGEROUS));
+        products.put(GRAVEL, new Product(GRAVEL, 10, 1.0f, Product.Menacing.REGULAR));
+        products.put(TIRES, new Product(TIRES, 3, 12.75f, Product.Menacing.REGULAR));
+        products.put(ACID, new Product(ACID, 4, 7.5f, Product.Menacing.DANGEROUS));
 
         // Init spaceships
         // Cruise
         ArrayList<Container> cruiseShipContainers = new ArrayList<>();
-        cruiseShipContainers.add(new Container(products.get("gravel"), 10, 0));
-        cruiseShipContainers.add(new Container(products.get("acid"), 10, 0));
-        spaceships.put("cruise", new CruiseShip("cruise", cruiseShipContainers));
+        cruiseShipContainers.add(new Container(products.get(GRAVEL), 10, 0));
+        cruiseShipContainers.add(new Container(products.get(ACID), 10, 0));
+        spaceships.put(CRUISE, new CruiseShip(CRUISE, cruiseShipContainers));
         // Millenial
         ArrayList<Container> millenialShipContainers = new ArrayList<>();
-        millenialShipContainers.add(new Container(products.get("gravel"), 10, 0));
-        millenialShipContainers.add(new Container(products.get("tires"), 10, 0));
-        spaceships.put("millenial", new MillenialShip("millenial", millenialShipContainers));
+        millenialShipContainers.add(new Container(products.get(GRAVEL), 10, 0));
+        millenialShipContainers.add(new Container(products.get(TIRES), 10, 0));
+        spaceships.put(MILLENIAL, new MillenialShip(MILLENIAL, millenialShipContainers));
         // Ultra
         ArrayList<Container> ultraShipContainers = new ArrayList<>();
-        ultraShipContainers.add(new Container(products.get("tires"), 10, 0));
-        ultraShipContainers.add(new Container(products.get("acid"), 10, 0));
-        spaceships.put("ultra", new UltraShip("ultra", ultraShipContainers));
+        ultraShipContainers.add(new Container(products.get(TIRES), 10, 0));
+        ultraShipContainers.add(new Container(products.get(ACID), 10, 0));
+        spaceships.put(ULTRA, new UltraShip(ULTRA, ultraShipContainers));
 
         // Init planets
         // Venus
         ArrayList<Container> venusConteiners = new ArrayList<>();
-        venusConteiners.add(new Container(products.get("gravel"), 20, 10));
-        venusConteiners.add(new Container(products.get("acid"), 20, 10));
-        planets.put("venus", new Planet("venus", venusConteiners, 3));
+        venusConteiners.add(new Container(products.get(GRAVEL), 20, 10));
+        venusConteiners.add(new Container(products.get(ACID), 20, 10));
+        planets.put(VENUS, new Planet(VENUS, venusConteiners, 3));
         // Mars
         ArrayList<Container> marsContainers = new ArrayList<>();
-        marsContainers.add(new Container(products.get("gravel"), 20, 10));
-        marsContainers.add(new Container(products.get("tires"), 20, 10));
-        planets.put("mars", new Planet("mars", marsContainers, 3));
+        marsContainers.add(new Container(products.get(GRAVEL), 20, 10));
+        marsContainers.add(new Container(products.get(TIRES), 20, 10));
+        planets.put(MARS, new Planet(MARS, marsContainers, 3));
         // Neptune
         ArrayList<Container> neptuneContainers = new ArrayList<>();
-        neptuneContainers.add(new Container(products.get("tires"), 20, 10));
-        neptuneContainers.add(new Container(products.get("acid"), 20, 10));
-        planets.put("neptune", new Planet("neptune", neptuneContainers, 3));
+        neptuneContainers.add(new Container(products.get(TIRES), 20, 10));
+        neptuneContainers.add(new Container(products.get(ACID), 20, 10));
+        planets.put(NEPTUNE, new Planet(NEPTUNE, neptuneContainers, 3));
 
         // Report
         System.out.println("[CommercialSpace] initialization finished");
