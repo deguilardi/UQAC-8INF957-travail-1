@@ -1,5 +1,7 @@
 package ca.uqac.ecommerce.party;
 
+import java.util.ArrayList;
+
 /**
  * - Each planet has different resources (products) varying in quantity/limit
  *   defined when loading at commercial space;
@@ -12,12 +14,13 @@ package ca.uqac.ecommerce.party;
  *   one ship per port (and one in waiting. To see further);
  * - Additions can be made as needed.
  */
-public class Planet {
+public class Planet extends Party {
 
     private Integer numOfPorts;
     private Spaceship line[];
 
-    public Planet(Integer numOfPorts) {
+    public Planet(String name, ArrayList<Container> containers, Integer numOfPorts) {
+        super(name, containers);
         this.numOfPorts = numOfPorts;
     }
 

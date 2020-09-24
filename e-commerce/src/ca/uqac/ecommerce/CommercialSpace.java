@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class CommercialSpace {
 
     private final ArrayList<Spaceship> spaceships = new ArrayList<>();
+    private final ArrayList<Planet> planets = new ArrayList<>();
 
     public void initialize(){
         // Set some products
@@ -32,27 +33,54 @@ public class CommercialSpace {
         // Init spaceships
         // Cruise
         ArrayList<Container> cruiseShipContainers = new ArrayList<>();
-        cruiseShipContainers.add(new Container(gravel, 30, 30));
+        cruiseShipContainers.add(new Container(gravel, 10, 0));
+        cruiseShipContainers.add(new Container(acid, 10, 0));
         spaceships.add(new CruiseShip("cruise", cruiseShipContainers));
         // Millenial
         ArrayList<Container> millenialShipContainers = new ArrayList<>();
-        millenialShipContainers.add(new Container(tires, 20, 20));
+        millenialShipContainers.add(new Container(gravel, 10, 0));
+        millenialShipContainers.add(new Container(tires, 10, 0));
         spaceships.add(new MillenialShip("millenial", millenialShipContainers));
         // Ultra
         ArrayList<Container> ultraShipContainers = new ArrayList<>();
-        ultraShipContainers.add(new Container(tires, 20, 20));
-        ultraShipContainers.add(new Container(acid, 10, 10));
+        ultraShipContainers.add(new Container(tires, 10, 0));
+        ultraShipContainers.add(new Container(acid, 10, 0));
         spaceships.add(new UltraShip("ultra", ultraShipContainers));
 
-        // Report spaceships
+        // Init planets
+        // Venus
+        ArrayList<Container> venusConteiners = new ArrayList<>();
+        venusConteiners.add(new Container(gravel, 20, 10));
+        venusConteiners.add(new Container(acid, 20, 10));
+        planets.add(new Planet("venus", venusConteiners, 3));
+        // Mars
+        ArrayList<Container> marsContainers = new ArrayList<>();
+        marsContainers.add(new Container(gravel, 20, 10));
+        marsContainers.add(new Container(tires, 20, 10));
+        planets.add(new Planet("mars", marsContainers, 3));
+        // Neptune
+        ArrayList<Container> neptuneContainers = new ArrayList<>();
+        neptuneContainers.add(new Container(tires, 20, 10));
+        neptuneContainers.add(new Container(acid, 20, 10));
+        planets.add(new Planet("neptune", neptuneContainers, 3));
+
+
+        // Initialization reports
+        // Spaceships
         System.out.println("[Init] spaceships");
         reportSpaceships();
-
-        // Init planets
+        // Planets
+        System.out.println("[Init] planets");
+        reportPlanets();
     }
 
     private void reportSpaceships(){
         System.out.println("[CommercialSpace] Reporting spaceships");
         spaceships.forEach(Party::report);
+    }
+
+    private void reportPlanets(){
+        System.out.println("[CommercialSpace] Reporting planets");
+        planets.forEach(Party::report);
     }
 }
