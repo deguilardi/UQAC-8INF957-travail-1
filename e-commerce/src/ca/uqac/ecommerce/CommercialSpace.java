@@ -47,10 +47,12 @@ public class CommercialSpace {
         // Report spaceships
         System.out.println("[Init] spaceships");
         reportSpaceships();
+
+        // Init planets
     }
 
     private void reportSpaceships(){
-        System.out.println("[Reporting] spaceships");
+        System.out.println("[CommercialSpace] Reporting spaceships");
         spaceships.forEach(Party::report);
     }
 }

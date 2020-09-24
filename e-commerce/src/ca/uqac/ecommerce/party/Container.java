@@ -41,8 +41,8 @@ public class Container {
         return new StringBuilder()
                 .append("[container]")
                 .append(" product:").append(product.getName())
-                .append(", capacity:").append(capacity.toString())
-                .append(", load:").append(load.toString())
+                .append(", capacity:").append(capacity.toString()).append("T")
+                .append(", load:").append(load.toString()).append("T")
                 .toString();
     }
 }
