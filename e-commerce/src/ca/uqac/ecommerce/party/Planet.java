@@ -1,6 +1,6 @@
 package ca.uqac.ecommerce.party;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * - Each planet has different resources (products) varying in quantity/limit
@@ -19,7 +19,7 @@ public class Planet extends Party {
     private Integer numOfPorts;
     private Spaceship line[];
 
-    public Planet(String name, ArrayList<Container> containers, Integer numOfPorts) {
+    public Planet(String name, HashMap<String, Container> containers, Integer numOfPorts) {
         super(name, containers);
         this.numOfPorts = numOfPorts;
     }

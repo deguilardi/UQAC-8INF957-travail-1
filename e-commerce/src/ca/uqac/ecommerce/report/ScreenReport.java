@@ -14,7 +14,7 @@ public class ScreenReport implements Report{
     public void generateReport(Party party) {
         StringBuilder sb = new StringBuilder()
                 .append("    ").append(party.toString());
-        party.getContainers().forEach(container -> {
+        party.getContainers().forEach((product, container) -> {
             sb.append("\r\n        ");
             sb.append(container.toString());
         });

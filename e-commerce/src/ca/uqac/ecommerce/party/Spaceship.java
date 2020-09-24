@@ -1,6 +1,6 @@
 package ca.uqac.ecommerce.party;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * - There are several types (to simplify our example, let's say 3);
@@ -45,7 +45,7 @@ public class Spaceship extends Party {
         }
     }
 
-    public Spaceship(String name, ArrayList<Container> containers) {
+    public Spaceship(String name, HashMap<String, Container> containers) {
         super(name, containers);
     }
 

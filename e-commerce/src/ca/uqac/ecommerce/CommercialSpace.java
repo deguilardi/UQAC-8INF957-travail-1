@@ -2,7 +2,6 @@ package ca.uqac.ecommerce;
 
 import ca.uqac.ecommerce.party.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static ca.uqac.ecommerce.party.PartyConstants.*;
@@ -28,6 +27,17 @@ public class CommercialSpace {
     private final HashMap<String, Spaceship> spaceships = new HashMap<>();
     private final HashMap<String, Planet> planets = new HashMap<>();
 
+    public void performTransaction(String sellerName, String buyerName, String spaceshipName, String productName){
+        System.out.println("[CommercialSpace] performing transaction");
+        System.out.println("    seller:"+sellerName+", buyer:"+buyerName+", spaceship:"+spaceshipName+", product:"+productName);
+        Planet seller = planets.get(sellerName);
+        Planet buyer = planets.get(buyerName);
+        Product product = products.get(productName);
+        Spaceship spaceship = spaceships.get(spaceshipName);
+
+        Boolean sold = seller.sell(spaceship, product);
+    }
+
     public void initialize(){
         // Init products
         products.put(GRAVEL, new Product(GRAVEL, 10, 1.0f, Product.Menacing.REGULAR));
@@ -36,36 +46,36 @@ public class CommercialSpace {
 
         // Init spaceships
         // Cruise
-        ArrayList<Container> cruiseShipContainers = new ArrayList<>();
-        cruiseShipContainers.add(new Container(products.get(GRAVEL), 10, 0));
-        cruiseShipContainers.add(new Container(products.get(ACID), 10, 0));
+        HashMap<String, Container> cruiseShipContainers = new HashMap<>();
+        cruiseShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 10, 0));
+        cruiseShipContainers.put(TIRES, new Container(products.get(ACID), 10, 0));
         spaceships.put(CRUISE, new CruiseShip(CRUISE, cruiseShipContainers));
         // Millenial
-        ArrayList<Container> millenialShipContainers = new ArrayList<>();
-        millenialShipContainers.add(new Container(products.get(GRAVEL), 10, 0));
-        millenialShipContainers.add(new Container(products.get(TIRES), 10, 0));
+        HashMap<String, Container> millenialShipContainers = new HashMap<>();
+        millenialShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 10, 0));
+        millenialShipContainers.put(TIRES, new Container(products.get(TIRES), 10, 0));
         spaceships.put(MILLENIAL, new MillenialShip(MILLENIAL, millenialShipContainers));
         // Ultra
-        ArrayList<Container> ultraShipContainers = new ArrayList<>();
-        ultraShipContainers.add(new Container(products.get(TIRES), 10, 0));
-        ultraShipContainers.add(new Container(products.get(ACID), 10, 0));
+        HashMap<String, Container> ultraShipContainers = new HashMap<>();
+        ultraShipContainers.put(TIRES, new Container(products.get(TIRES), 10, 0));
+        ultraShipContainers.put(ACID, new Container(products.get(ACID), 10, 0));
         spaceships.put(ULTRA, new UltraShip(ULTRA, ultraShipContainers));
 
         // Init planets
         // Venus
-        ArrayList<Container> venusConteiners = new ArrayList<>();
-        venusConteiners.add(new Container(products.get(GRAVEL), 20, 10));
-        venusConteiners.add(new Container(products.get(ACID), 20, 10));
+        HashMap<String, Container> venusConteiners = new HashMap<>();
+        venusConteiners.put(GRAVEL, new Container(products.get(GRAVEL), 20, 10));
+        venusConteiners.put(ACID, new Container(products.get(ACID), 20, 10));
         planets.put(VENUS, new Planet(VENUS, venusConteiners, 3));
         // Mars
-        ArrayList<Container> marsContainers = new ArrayList<>();
-        marsContainers.add(new Container(products.get(GRAVEL), 20, 10));
-        marsContainers.add(new Container(products.get(TIRES), 20, 10));
+        HashMap<String, Container> marsContainers = new HashMap<>();
+        marsContainers.put(GRAVEL, new Container(products.get(GRAVEL), 20, 10));
+        marsContainers.put(TIRES, new Container(products.get(TIRES), 20, 10));
         planets.put(MARS, new Planet(MARS, marsContainers, 3));
         // Neptune
-        ArrayList<Container> neptuneContainers = new ArrayList<>();
-        neptuneContainers.add(new Container(products.get(TIRES), 20, 10));
-        neptuneContainers.add(new Container(products.get(ACID), 20, 10));
+        HashMap<String, Container> neptuneContainers = new HashMap<>();
+        neptuneContainers.put(TIRES, new Container(products.get(TIRES), 20, 10));
+        neptuneContainers.put(ACID, new Container(products.get(ACID), 20, 10));
         planets.put(NEPTUNE, new Planet(NEPTUNE, neptuneContainers, 3));
 
         // Report

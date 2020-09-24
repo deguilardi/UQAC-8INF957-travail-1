@@ -3,16 +3,16 @@ package ca.uqac.ecommerce.party;
 import ca.uqac.ecommerce.report.Report;
 import ca.uqac.ecommerce.report.ScreenReport;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Party {
 
     private String name;
-    private ArrayList<Container> containers;
+    private HashMap<String, Container> containers;
     private Transaction transactions[];
     private Report report;
 
-    public Party(String name, ArrayList<Container> containers) {
+    public Party(String name, HashMap<String, Container> containers) {
         this.name = name;
         this.containers = containers;
         this.report = new ScreenReport();
@@ -40,11 +40,11 @@ public class Party {
         this.name = name;
     }
 
-    public ArrayList<Container> getContainers() {
+    public HashMap<String, Container> getContainers() {
         return containers;
     }
 
-    public void setContainers(ArrayList<Container> containers) {
+    public void setContainers(HashMap<String, Container> containers) {
         this.containers = containers;
     }
 

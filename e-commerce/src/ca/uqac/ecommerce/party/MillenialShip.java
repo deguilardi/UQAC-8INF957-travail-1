@@ -1,12 +1,12 @@
 package ca.uqac.ecommerce.party;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MillenialShip extends Spaceship{
 
     private Boolean speedlightActive;
 
-    public MillenialShip(String name, ArrayList<Container> containers) {
+    public MillenialShip(String name, HashMap<String, Container> containers) {
         super(name, containers);
     }
 
