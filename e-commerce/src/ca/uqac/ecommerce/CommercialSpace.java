@@ -47,40 +47,26 @@ public class CommercialSpace {
         System.out.println(sb);
         System.out.println("                               \\-------/     //----------------//      \\-------/");
 
-        // Dock on seller
-        Boolean dockedOnSeller = seller.dock(spaceship);
-        if(!dockedOnSeller){
-            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't dock on seller ("+sellerName+") planet.");
-            return;
+        Transaction transaction = null;
+        try {
+            seller.dock(spaceship);
+            spaceship.load(product, seller);
+            seller.undock(spaceship);
+            buyer.dock(spaceship);
+            Integer unloaded = spaceship.unload(product, buyer);
+            transaction = new Transaction(sellerName, buyerName, productName, unloaded);
+            System.out.println("        [success]");
         }
-        // Load from seller
-        Integer loaded = spaceship.load(product, seller);
-        if(loaded == 0){
-            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't load from seller ("+sellerName+") planet.");
-            return;
+        catch(TransactionException e){
+            System.out.println("        [exception] " + e);
         }
-        // Undock from seller
-        seller.undock(spaceship);
-        // Dock on buyer
-        Boolean dockedOnBuyer = buyer.dock(spaceship);
-        if(!dockedOnBuyer){
-            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't dock on buyer("+buyerName+") planet.");
-            return;
-        }
-        // Unload on buyer
-        Integer unloaded = spaceship.unload(product, buyer);
-        if(unloaded == 0){
-            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't unload on buyer("+buyerName+") planet.");
-            return;
-        }
-        // Success output
-        System.out.println("        [success]");
 
         // Register transaction
-        Transaction transaction = new Transaction(sellerName, buyerName, productName, unloaded);
-        seller.registerTransaction(transaction);
-        buyer.registerTransaction(transaction);
-        spaceship.registerTransaction(transaction);
+        if(transaction != null) {
+            seller.registerTransaction(transaction);
+            buyer.registerTransaction(transaction);
+            spaceship.registerTransaction(transaction);
+        }
     }
 
     public void initialize(){

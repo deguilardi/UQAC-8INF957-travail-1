@@ -19,22 +19,44 @@ public class Party {
         this.report = new ScreenReport();
     }
 
-    public Integer load(Product product, Party from){
-        Container myContainer = this.containers.get(product.getName());
+    public Integer load(Product product, Party from) throws TransactionException {
         Container fromContainer = from.containers.get(product.getName());
-        if(myContainer != null && fromContainer != null){
-            return myContainer.loadFrom(fromContainer);
+        if(fromContainer == null){
+            throw new TransactionException("Couldn't load "+this.name+". "
+                    +from.name+" doesn't have a container for "+product.getName());
         }
-        return 0;
+        Container toContainer = this.containers.get(product.getName());
+        if(toContainer == null){
+            throw new TransactionException("Couldn't load "+this.name+". "
+                    +this.name+" doesn't have a container for "+product.getName());
+        }
+        Integer output = toContainer.loadFrom(fromContainer);
+        if(output == 0){
+            throw new TransactionException("Couldn't load "+this.name+". "
+                    +this.name+" can't load "+fromContainer.getCapacity()+"T of "+product.getName()
+                    +", it has only "+(toContainer.getCapacity() - toContainer.getLoad())+"T left.");
+        }
+        return output;
     }
 
-    public Integer unload(Product product, Party to){
-        Container myContainer = this.containers.get(product.getName());
-        Container toContainer = to.containers.get(product.getName());
-        if(myContainer != null && toContainer != null){
-            return toContainer.loadFrom(myContainer);
+    public Integer unload(Product product, Party to) throws TransactionException {
+        Container fromContainer = this.containers.get(product.getName());
+        if(fromContainer == null){
+            throw new TransactionException("Couldn't unload "+this.name+". "
+                    +this.name+" doesn't have a container for "+product.getName());
         }
-        return 0;
+        Container toContainer = to.containers.get(product.getName());
+        if(toContainer == null){
+            throw new TransactionException("Couldn't unload "+this.name+". "
+                    +to.name+" doesn't have a container for "+product.getName());
+        }
+        Integer output = toContainer.loadFrom(fromContainer);
+        if(output == 0){
+            throw new TransactionException("Couldn't unload "+this.name+". "
+                    +to.name+" can't load "+fromContainer.getCapacity()+"T of "+product.getName()
+                    +", it has only "+(toContainer.getCapacity() - toContainer.getLoad())+"T left.");
+        }
+        return output;
     }
 
     public void registerTransaction(Transaction transaction){
