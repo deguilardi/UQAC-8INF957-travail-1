@@ -50,4 +50,9 @@ public class Product {
     public void setMenacing(Menacing menacing) {
         this.menacing = menacing;
     }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

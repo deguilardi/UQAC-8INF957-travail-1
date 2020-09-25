@@ -1,6 +1,7 @@
 package ca.uqac.ecommerce.party;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 /**
  * - Each planet has different resources (products) varying in quantity/limit
@@ -17,21 +18,30 @@ import java.util.HashMap;
 public class Planet extends Party {
 
     private Integer numOfPorts;
-    private Spaceship line[];
+    private LinkedHashSet<Spaceship> docks;
 
     public Planet(String name, HashMap<String, Container> containers, Integer numOfPorts) {
         super(name, containers);
         this.numOfPorts = numOfPorts;
+        this.docks = new LinkedHashSet<>();
     }
 
     public Boolean dock(Spaceship spaceship){
-        // @TODO
-        return true;
+        if(!spaceship.isDocked() && docks.size() <= numOfPorts) {
+            docks.add(spaceship);
+            spaceship.setDocked(true);
+            return true;
+        }
+        return false;
     }
 
     public Boolean undock(Spaceship spaceship){
-        // @TODO
-        return true;
+        if(spaceship.isDocked() && docks.contains(spaceship)){
+            docks.remove(spaceship);
+            spaceship.setDocked(false);
+            return true;
+        }
+        return false;
     }
 
     public Boolean sell(Spaceship spaceship, Product product){
@@ -52,11 +62,11 @@ public class Planet extends Party {
         this.numOfPorts = numOfPorts;
     }
 
-    public Spaceship[] getLine() {
-        return line;
+    public LinkedHashSet<Spaceship> getDocks() {
+        return docks;
     }
 
-    public void setLine(Spaceship[] line) {
-        this.line = line;
+    public void setDocks(LinkedHashSet<Spaceship> docks) {
+        this.docks = docks;
     }
 }

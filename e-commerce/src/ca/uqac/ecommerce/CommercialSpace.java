@@ -28,14 +28,42 @@ public class CommercialSpace {
     private final HashMap<String, Planet> planets = new HashMap<>();
 
     public void performTransaction(String sellerName, String buyerName, String spaceshipName, String productName){
-        System.out.println("[CommercialSpace] performing transaction");
-        System.out.println("    seller:"+sellerName+", buyer:"+buyerName+", spaceship:"+spaceshipName+", product:"+productName);
         Planet seller = planets.get(sellerName);
         Planet buyer = planets.get(buyerName);
         Product product = products.get(productName);
         Spaceship spaceship = spaceships.get(spaceshipName);
 
-        Boolean sold = seller.sell(spaceship, product);
+        System.out.println("[CommercialSpace] performing transaction");
+        System.out.println("    [transaction] selling "+productName+" from "+sellerName+" to "+buyerName+" with spaceship "+spaceshipName);
+
+        // Dock on seller
+        Boolean dockedOnSeller = seller.dock(spaceship);
+        if(!dockedOnSeller){
+            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't dock on seller ("+sellerName+") planet.");
+            return;
+        }
+        // Load from seller
+        Boolean loaded = spaceship.load(product, seller);
+        if(!loaded){
+            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't load from seller ("+sellerName+") planet.");
+            return;
+        }
+        // Undock from seller
+        seller.undock(spaceship);
+        // Dock on buyer
+        Boolean dockedOnBuyer = buyer.dock(spaceship);
+        if(!dockedOnBuyer){
+            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't dock on buyer("+buyerName+") planet.");
+            return;
+        }
+        // Unload on buyer
+        Boolean unloaded = spaceship.unload(product, buyer);
+        if(!unloaded){
+            System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't unload on buyer("+buyerName+") planet.");
+            return;
+        }
+        // Success output
+        System.out.println("        [success]");
     }
 
     public void initialize(){

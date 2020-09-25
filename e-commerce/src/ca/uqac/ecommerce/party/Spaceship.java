@@ -23,6 +23,7 @@ public class Spaceship extends Party {
     private Integer totalCapacity;
     private Integer currentLoad;
     private Route route;
+    private Boolean docked = false;
 
     public class Route{
         private Planet origin;
@@ -77,5 +78,13 @@ public class Spaceship extends Party {
 
     public void setRoute(Route route) {
         this.route = route;
+    }
+
+    public Boolean isDocked() {
+        return docked;
+    }
+
+    public void setDocked(Boolean docked) {
+        this.docked = docked;
     }
 }

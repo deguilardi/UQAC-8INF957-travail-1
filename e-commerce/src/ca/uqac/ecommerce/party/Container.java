@@ -12,6 +12,14 @@ public class Container {
         this.load = load;
     }
 
+    public Boolean loadFrom(Container from){
+        if(this.capacity - this.load >= from.load){
+            this.load += from.load;
+            from.load = 0;
+        }
+        return false;
+    }
+
     public Product getProduct() {
         return product;
     }

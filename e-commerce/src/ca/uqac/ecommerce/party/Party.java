@@ -3,13 +3,14 @@ package ca.uqac.ecommerce.party;
 import ca.uqac.ecommerce.report.Report;
 import ca.uqac.ecommerce.report.ScreenReport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Party {
 
     private String name;
     private HashMap<String, Container> containers;
-    private Transaction transactions[];
+    private ArrayList<Transaction> transactions = new ArrayList<>();
     private Report report;
 
     public Party(String name, HashMap<String, Container> containers) {
@@ -18,14 +19,24 @@ public class Party {
         this.report = new ScreenReport();
     }
 
-    public Boolean load(Product product){
-        // @TODO
-        return true;
+    public Boolean load(Product product, Party from){
+        Container myContainer = this.containers.get(product.getName());
+        Container fromContainer = from.containers.get(product.getName());
+        if(myContainer != null && fromContainer != null){
+            myContainer.loadFrom(fromContainer);
+            return true;
+        }
+        return false;
     }
 
-    public Boolean unload(Product product){
-        // @TODO
-        return true;
+    public Boolean unload(Product product, Party to){
+        Container myContainer = this.containers.get(product.getName());
+        Container toContainer = to.containers.get(product.getName());
+        if(myContainer != null && toContainer != null){
+            toContainer.loadFrom(myContainer);
+            return true;
+        }
+        return false;
     }
 
     public void report(){
@@ -44,15 +55,16 @@ public class Party {
         return containers;
     }
 
-    public void setContainers(HashMap<String, Container> containers) {
-        this.containers = containers;
-    }
-
     @Override
     public String toString() {
         return new StringBuilder()
                 .append("[party]")
                 .append(" name:").append(name)
                 .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }
