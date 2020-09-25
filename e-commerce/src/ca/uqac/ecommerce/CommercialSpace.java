@@ -79,7 +79,7 @@ public class CommercialSpace {
         // Cruise
         HashMap<String, Container> cruiseShipContainers = new HashMap<>();
         cruiseShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 10, 0));
-        cruiseShipContainers.put(TIRES, new Container(products.get(ACID), 10, 0));
+        cruiseShipContainers.put(ACID, new Container(products.get(ACID), 10, 0));
         spaceships.put(CRUISE, new CruiseShip(CRUISE, cruiseShipContainers));
         // Millenial
         HashMap<String, Container> millenialShipContainers = new HashMap<>();

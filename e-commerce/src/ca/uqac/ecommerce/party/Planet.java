@@ -28,8 +28,11 @@ public class Planet extends Party {
 
     public Boolean dock(Spaceship spaceship) throws TransactionException {
         if(spaceship.isDocked()){
-            throw new TransactionException("Couldn't dock "+spaceship.getName()+" on "+getName()+". "
-                    +spaceship.getName()+" is already docked elsewhere");
+            if(!docks.contains(spaceship)) {
+                throw new TransactionException("Couldn't dock " + spaceship.getName() + " on " + getName() + ". "
+                        + spaceship.getName() + " is already docked elsewhere");
+            }
+            return true;
         }
         if(docks.size() > numOfPorts) {
             throw new TransactionException("Couldn't dock "+spaceship.getName()+" on "+getName()+". "
