@@ -26,22 +26,32 @@ public class Planet extends Party {
         this.docks = new LinkedHashSet<>();
     }
 
-    public Boolean dock(Spaceship spaceship){
-        if(!spaceship.isDocked() && docks.size() <= numOfPorts) {
-            docks.add(spaceship);
-            spaceship.setDocked(true);
-            return true;
+    public Boolean dock(Spaceship spaceship) throws TransactionException {
+        if(spaceship.isDocked()){
+            throw new TransactionException("Couldn't dock "+spaceship.getName()+" on "+getName()+". "
+                    +spaceship.getName()+" is already docked elsewhere");
         }
-        return false;
+        if(docks.size() > numOfPorts) {
+            throw new TransactionException("Couldn't dock "+spaceship.getName()+" on "+getName()+". "
+                    +this.getName()+" is full");
+        }
+        docks.add(spaceship);
+        spaceship.setDocked(true);
+        return true;
     }
 
-    public Boolean undock(Spaceship spaceship){
-        if(spaceship.isDocked() && docks.contains(spaceship)){
-            docks.remove(spaceship);
-            spaceship.setDocked(false);
-            return true;
+    public Boolean undock(Spaceship spaceship) throws TransactionException {
+        if(!spaceship.isDocked()){
+            throw new TransactionException("Couldn't undock "+spaceship.getName()+" from "+getName()+". "
+                    +spaceship.getName()+" is docked nowhere");
         }
-        return false;
+        if(!docks.contains(spaceship)){
+            throw new TransactionException("Couldn't undock "+spaceship.getName()+" from "+getName()+". "
+                    +spaceship.getName()+" is not docked on"+this.getName());
+        }
+        docks.remove(spaceship);
+        spaceship.setDocked(false);
+        return true;
     }
 
     public Boolean sell(Spaceship spaceship, Product product){
