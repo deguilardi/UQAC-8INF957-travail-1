@@ -54,8 +54,8 @@ public class CommercialSpace {
             return;
         }
         // Load from seller
-        Boolean loaded = spaceship.load(product, seller);
-        if(!loaded){
+        Integer loaded = spaceship.load(product, seller);
+        if(loaded == 0){
             System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't load from seller ("+sellerName+") planet.");
             return;
         }
@@ -68,13 +68,19 @@ public class CommercialSpace {
             return;
         }
         // Unload on buyer
-        Boolean unloaded = spaceship.unload(product, buyer);
-        if(!unloaded){
+        Integer unloaded = spaceship.unload(product, buyer);
+        if(unloaded == 0){
             System.out.println("        [exception] spaceship ("+spaceshipName+") couldn't unload on buyer("+buyerName+") planet.");
             return;
         }
         // Success output
         System.out.println("        [success]");
+
+        // Register transaction
+        Transaction transaction = new Transaction(sellerName, buyerName, productName, unloaded);
+        seller.registerTransaction(transaction);
+        buyer.registerTransaction(transaction);
+        spaceship.registerTransaction(transaction);
     }
 
     public void initialize(){

@@ -19,24 +19,26 @@ public class Party {
         this.report = new ScreenReport();
     }
 
-    public Boolean load(Product product, Party from){
+    public Integer load(Product product, Party from){
         Container myContainer = this.containers.get(product.getName());
         Container fromContainer = from.containers.get(product.getName());
         if(myContainer != null && fromContainer != null){
-            myContainer.loadFrom(fromContainer);
-            return true;
+            return myContainer.loadFrom(fromContainer);
         }
-        return false;
+        return 0;
     }
 
-    public Boolean unload(Product product, Party to){
+    public Integer unload(Product product, Party to){
         Container myContainer = this.containers.get(product.getName());
         Container toContainer = to.containers.get(product.getName());
         if(myContainer != null && toContainer != null){
-            toContainer.loadFrom(myContainer);
-            return true;
+            return toContainer.loadFrom(myContainer);
         }
-        return false;
+        return 0;
+    }
+
+    public void registerTransaction(Transaction transaction){
+        transactions.add(transaction);
     }
 
     public void report(){

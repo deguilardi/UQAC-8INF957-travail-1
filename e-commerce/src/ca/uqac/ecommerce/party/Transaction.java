@@ -2,10 +2,17 @@ package ca.uqac.ecommerce.party;
 
 public class Transaction {
 
-    private String buyerName;
     private String sellerName;
+    private String buyerName;
     private String productName;
     private Integer quantity;
+
+    public Transaction(String sellerName, String buyerName, String productName, Integer quantity) {
+        this.sellerName = sellerName;
+        this.buyerName = buyerName;
+        this.productName = productName;
+        this.quantity = quantity;
+    }
 
     public String getBuyerName() {
         return buyerName;
