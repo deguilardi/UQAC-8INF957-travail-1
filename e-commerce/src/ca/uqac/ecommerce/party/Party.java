@@ -43,6 +43,10 @@ public class Party {
         report.generateReport(this);
     }
 
+    public String getPaddedName(Integer size){
+        return String.format("%-" + size + "s", name);
+    }
+
     public String getName() {
         return name;
     }
@@ -59,7 +63,7 @@ public class Party {
     public String toString() {
         return new StringBuilder()
                 .append("[party]")
-                .append(" name:").append(String.format("%-" + 10 + "s", name))
+                .append(" name:").append(getPaddedName(10))
                 .toString();
     }
 

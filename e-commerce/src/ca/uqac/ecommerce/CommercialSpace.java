@@ -34,16 +34,15 @@ public class CommercialSpace {
         Spaceship spaceship = spaceships.get(spaceshipName);
 
         System.out.println("[CommercialSpace] performing transaction");
-        System.out.println("    [transaction]              /-------\\     \\\\----------------\\\\      /-------\\");
+        System.out.println("    [transaction] "+String.format("%-" + 7 + "s", productName));
+        System.out.println("                               /-------\\     \\\\----------------\\\\      /-------\\");
         StringBuilder sb = new StringBuilder()
-                .append("                  <")
-                .append(String.format("%-" + 7 + "s", productName))
-                .append(">   | ")
-                .append(String.format("%-" + 7 + "s", sellerName))
+                .append("                              | ")
+                .append(seller.getPaddedName(7))
                 .append(" |    ||>   ")
-                .append(String.format("%-" + 10 + "s", spaceshipName))
+                .append(spaceship.getPaddedName(10))
                 .append("   >>>   | ")
-                .append(String.format("%-" + 7 + "s", buyerName))
+                .append(buyer.getPaddedName(7))
                 .append(" |");
         System.out.println(sb);
         System.out.println("                               \\-------/     //----------------//      \\-------/");
