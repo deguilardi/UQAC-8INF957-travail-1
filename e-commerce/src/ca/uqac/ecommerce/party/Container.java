@@ -48,9 +48,9 @@ public class Container {
     public String toString() {
         return new StringBuilder()
                 .append("[container]")
-                .append(" product:").append(product.getName())
-                .append(", capacity:").append(capacity.toString()).append("T")
-                .append(", load:").append(load.toString()).append("T")
+                .append(" | product: ").append(String.format("%-" + 7 + "s", product.getName()))
+                .append(" | capacity: ").append(String.format("%" + 2 + "s", capacity.toString())).append("T")
+                .append(" | load: ").append(String.format("%" + 2 + "s", load.toString())).append("T |")
                 .toString();
     }
 }

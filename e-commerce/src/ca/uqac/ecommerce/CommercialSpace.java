@@ -34,7 +34,19 @@ public class CommercialSpace {
         Spaceship spaceship = spaceships.get(spaceshipName);
 
         System.out.println("[CommercialSpace] performing transaction");
-        System.out.println("    [transaction] selling "+productName+" from "+sellerName+" to "+buyerName+" with spaceship "+spaceshipName);
+        System.out.println("    [transaction]              /-------\\     \\\\----------------\\\\      /-------\\");
+        StringBuilder sb = new StringBuilder()
+                .append("                  <")
+                .append(String.format("%-" + 7 + "s", productName))
+                .append(">   | ")
+                .append(String.format("%-" + 7 + "s", sellerName))
+                .append(" |    ||>   ")
+                .append(String.format("%-" + 10 + "s", spaceshipName))
+                .append("   >>>   | ")
+                .append(String.format("%-" + 7 + "s", buyerName))
+                .append(" |");
+        System.out.println(sb);
+        System.out.println("                               \\-------/     //----------------//      \\-------/");
 
         // Dock on seller
         Boolean dockedOnSeller = seller.dock(spaceship);

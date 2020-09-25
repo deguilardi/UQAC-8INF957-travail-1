@@ -59,7 +59,7 @@ public class Party {
     public String toString() {
         return new StringBuilder()
                 .append("[party]")
-                .append(" name:").append(name)
+                .append(" name:").append(String.format("%-" + 10 + "s", name))
                 .toString();
     }
 
