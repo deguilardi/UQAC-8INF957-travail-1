@@ -1,8 +1,11 @@
 package ca.uqac.ecommerce;
 
 import ca.uqac.ecommerce.party.*;
+import sun.jvm.hotspot.memory.Space;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 import static ca.uqac.ecommerce.party.PartyConstants.*;
 
@@ -27,6 +30,16 @@ public class CommercialSpace {
     private final HashMap<String, Spaceship> spaceships = new HashMap<>();
     private final HashMap<String, Planet> planets = new HashMap<>();
     private Integer cycle = 0;
+
+    public CommercialSpace(){
+        // Init products
+        // These are the products available in this commercial space
+        products.put(GRAVEL, new Product(GRAVEL, 10, 1.0f, Product.Menacing.REGULAR));
+        products.put(TIRES, new Product(TIRES, 3, 12.75f, Product.Menacing.REGULAR));
+        products.put(PAPER, new Product(PAPER, 7, 4.9f, Product.Menacing.REGULAR));
+        products.put(ACID, new Product(ACID, 4, 13.9f, Product.Menacing.DANGEROUS));
+        products.put(GAS, new Product(GAS, 1, 7.5f, Product.Menacing.DANGEROUS));
+    }
 
     public void performTransaction(String sellerName, String buyerName, String spaceshipName, String productName){
         Planet seller = planets.get(sellerName);
@@ -73,52 +86,6 @@ public class CommercialSpace {
         }
     }
 
-    public void initialize(){
-        // Init products
-        products.put(GRAVEL, new Product(GRAVEL, 10, 1.0f, Product.Menacing.REGULAR));
-        products.put(TIRES, new Product(TIRES, 3, 12.75f, Product.Menacing.REGULAR));
-        products.put(ACID, new Product(ACID, 4, 7.5f, Product.Menacing.DANGEROUS));
-
-        // Init spaceships
-        // Cruise
-        HashMap<String, Container> cruiseShipContainers = new HashMap<>();
-        cruiseShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 10, 0));
-        cruiseShipContainers.put(ACID, new Container(products.get(ACID), 10, 0));
-        spaceships.put(CRUISE, new CruiseShip(CRUISE, cruiseShipContainers));
-        // Millenial
-        HashMap<String, Container> millenialShipContainers = new HashMap<>();
-        millenialShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 40, 0));
-        millenialShipContainers.put(TIRES, new Container(products.get(TIRES), 10, 0));
-        spaceships.put(MILLENIAL, new MillenialShip(MILLENIAL, millenialShipContainers));
-        // Ultra
-        HashMap<String, Container> ultraShipContainers = new HashMap<>();
-        ultraShipContainers.put(TIRES, new Container(products.get(TIRES), 10, 0));
-        ultraShipContainers.put(ACID, new Container(products.get(ACID), 10, 0));
-        spaceships.put(ULTRA, new UltraShip(ULTRA, ultraShipContainers));
-
-        // Init planets
-        // Venus
-        HashMap<String, Container> venusConteiners = new HashMap<>();
-        venusConteiners.put(GRAVEL, new Container(products.get(GRAVEL), 20, 10));
-        venusConteiners.put(ACID, new Container(products.get(ACID), 20, 10));
-        planets.put(VENUS, new Planet(VENUS, venusConteiners, 3));
-        // Mars
-        HashMap<String, Container> marsContainers = new HashMap<>();
-        marsContainers.put(GRAVEL, new Container(products.get(GRAVEL), 20, 10));
-        marsContainers.put(TIRES, new Container(products.get(TIRES), 20, 10));
-        planets.put(MARS, new Planet(MARS, marsContainers, 3));
-        // Neptune
-        HashMap<String, Container> neptuneContainers = new HashMap<>();
-        neptuneContainers.put(TIRES, new Container(products.get(TIRES), 20, 10));
-        neptuneContainers.put(ACID, new Container(products.get(ACID), 20, 10));
-        planets.put(NEPTUNE, new Planet(NEPTUNE, neptuneContainers, 3));
-
-        // Report
-        System.out.println("[CommercialSpace] initialization finished");
-        System.out.println("[CommercialSpace] initialization report");
-        report();
-    }
-
     public void initNewCycle(){
         cycle++;
         System.out.println("");
@@ -146,5 +113,28 @@ public class CommercialSpace {
         System.out.println("                . |-----------------------------------------------|");
         planets.forEach((index, planet) -> planet.report());
         System.out.println("                . |-----------------------------------------------|");
+    }
+
+    public <T extends Spaceship> void factorySpaceship(String name, Class<T> clazz, String[] productNames, Integer defCapacity, Integer defLoad){
+        HashMap<String, Container> containers = new HashMap<>();
+        for (String productName : productNames) {
+            containers.put(productName, new Container(products.get(productName), defCapacity, defLoad));
+        }
+        try {
+            T spaceshipInstance = clazz.getDeclaredConstructor(String.class, HashMap.class).newInstance(name, containers);
+            spaceships.put(name, spaceshipInstance);
+        }
+        catch (InstantiationException ignore) {}
+        catch (IllegalAccessException ignore) {}
+        catch (NoSuchMethodException ignore) {}
+        catch (InvocationTargetException ignore) {}
+    }
+
+    public void factoryPlanet(String name, Integer numOfPorts, String productNames[], Integer defCapacity, Integer defLoad){
+        HashMap<String, Container> containers = new HashMap<>();
+        for (String productName : productNames) {
+            containers.put(productName, new Container(products.get(productName), defCapacity, defLoad));
+        }
+        planets.put(name, new Planet(name, containers, numOfPorts));
     }
 }
