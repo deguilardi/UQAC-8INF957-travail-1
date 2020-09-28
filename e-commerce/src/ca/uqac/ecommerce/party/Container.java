@@ -49,10 +49,9 @@ public class Container {
     @Override
     public String toString() {
         return new StringBuilder()
-                .append("[container]")
-                .append(" | product: ").append(String.format("%-" + 7 + "s", product.getName()))
-                .append(" | capacity: ").append(String.format("%" + 2 + "s", capacity.toString())).append("T")
-                .append(" | load: ").append(String.format("%" + 2 + "s", load.toString())).append("T |")
+                .append(" | ").append(String.format("%-" + 9 + "s", product.getName()))
+                .append(" | ").append(String.format("%" + 7 + "s", capacity.toString())).append("T")
+                .append(" | ").append(String.format("%" + 7 + "s", load.toString())).append("T |")
                 .toString();
     }
 }

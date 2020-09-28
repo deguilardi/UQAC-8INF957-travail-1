@@ -12,12 +12,8 @@ public class ScreenReport implements Report{
 
     @Override
     public void generateReport(Party party) {
-        StringBuilder sb = new StringBuilder()
-                .append("    ").append(party.toString());
         party.getContainers().forEach((product, container) -> {
-            sb.append("\r\n        ");
-            sb.append(container.toString());
+            System.out.println("                . | " + party.getPaddedName(11) + container.toString());
         });
-        System.out.println(sb);
     }
 }

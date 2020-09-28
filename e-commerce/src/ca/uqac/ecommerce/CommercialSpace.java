@@ -26,6 +26,7 @@ public class CommercialSpace {
     private final HashMap<String, Product> products = new HashMap<>();
     private final HashMap<String, Spaceship> spaceships = new HashMap<>();
     private final HashMap<String, Planet> planets = new HashMap<>();
+    private Integer cycle = 0;
 
     public void performTransaction(String sellerName, String buyerName, String spaceshipName, String productName){
         Planet seller = planets.get(sellerName);
@@ -33,11 +34,12 @@ public class CommercialSpace {
         Product product = products.get(productName);
         Spaceship spaceship = spaceships.get(spaceshipName);
 
-        System.out.println("[CommercialSpace] performing transaction");
-        System.out.println("    [transaction] "+String.format("%-" + 7 + "s", productName));
-        System.out.println("                               /-------\\     \\\\----------------\\\\      /-------\\");
+        System.out.println("                . ");
+        System.out.println("                . performing transaction. selling "+productName);
+        System.out.println("                . ");
+        System.out.println("                .              /-------\\     \\\\----------------\\\\      /-------\\");
         StringBuilder sb = new StringBuilder()
-                .append("                              | ")
+                .append("                .             | ")
                 .append(seller.getPaddedName(7))
                 .append(" |    ||>   ")
                 .append(spaceship.getPaddedName(10))
@@ -45,7 +47,8 @@ public class CommercialSpace {
                 .append(buyer.getPaddedName(7))
                 .append(" |");
         System.out.println(sb);
-        System.out.println("                               \\-------/     //----------------//      \\-------/");
+        System.out.println("                .              \\-------/     //----------------//      \\-------/");
+        System.out.println("                . ");
 
         Transaction transaction = null;
         try {
@@ -55,11 +58,12 @@ public class CommercialSpace {
             buyer.dock(spaceship);
             Integer unloaded = spaceship.unload(product, buyer);
             transaction = new Transaction(sellerName, buyerName, productName, unloaded);
-            System.out.println("        [success]");
+            System.out.println("                . Success!");
         }
         catch(TransactionException e){
-            System.out.println("        [exception] " + e);
+            System.out.println("                . Exception: " + e);
         }
+        System.out.println("                .");
 
         // Register transaction
         if(transaction != null) {
@@ -83,7 +87,7 @@ public class CommercialSpace {
         spaceships.put(CRUISE, new CruiseShip(CRUISE, cruiseShipContainers));
         // Millenial
         HashMap<String, Container> millenialShipContainers = new HashMap<>();
-        millenialShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 10, 0));
+        millenialShipContainers.put(GRAVEL, new Container(products.get(GRAVEL), 40, 0));
         millenialShipContainers.put(TIRES, new Container(products.get(TIRES), 10, 0));
         spaceships.put(MILLENIAL, new MillenialShip(MILLENIAL, millenialShipContainers));
         // Ultra
@@ -111,21 +115,36 @@ public class CommercialSpace {
 
         // Report
         System.out.println("[CommercialSpace] initialization finished");
-        reportAll();
+        System.out.println("[CommercialSpace] initialization report");
+        report();
     }
 
-    private void reportSpaceships(){
-        System.out.println("[CommercialSpace] Reporting spaceships");
+    public void initNewCycle(){
+        cycle++;
+        System.out.println("");
+        System.out.println("");
+        System.out.println("[CommercialSpace] ========================= initializing cycle "+cycle+" =========================");
+        planets.forEach((index, planet) -> planet.undockAllAndMoveLine());
+    }
+
+    public void report(){
+        System.out.println("                .");
+        System.out.println("                . report for cycle "+cycle);
+        System.out.println("                .");
+        System.out.println("                . |-----------------------------------------------|");
+        System.out.println("                . |                  SPACESHIPS                   |");
+        System.out.println("                . |-----------------------------------------------|");
+        System.out.println("                . |  spaceship  |  product  | capacity |   load   |");
+        System.out.println("                . |-----------------------------------------------|");
         spaceships.forEach((index, spaceship) -> spaceship.report());
-    }
-
-    private void reportPlanets(){
-        System.out.println("[CommercialSpace] Reporting planets");
+        System.out.println("                . |-----------------------------------------------|");
+        System.out.println("                .");
+        System.out.println("                . |-----------------------------------------------|");
+        System.out.println("                . |                    PLANETS                    |");
+        System.out.println("                . |-----------------------------------------------|");
+        System.out.println("                . |   planet    |  product  | capacity |   load   |");
+        System.out.println("                . |-----------------------------------------------|");
         planets.forEach((index, planet) -> planet.report());
-    }
-
-    private void reportAll(){
-        reportSpaceships();
-        reportPlanets();
+        System.out.println("                . |-----------------------------------------------|");
     }
 }
