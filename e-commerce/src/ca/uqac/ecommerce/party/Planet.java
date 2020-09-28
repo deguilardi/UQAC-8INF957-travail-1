@@ -1,7 +1,5 @@
 package ca.uqac.ecommerce.party;
 
-import sun.jvm.hotspot.memory.Space;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -20,12 +18,12 @@ import java.util.LinkedHashSet;
  */
 public class Planet extends Party {
 
-    private Integer numOfPorts;
+    private Integer numOfDocks;
     private LinkedHashSet<Spaceship> docks;
 
-    public Planet(String name, HashMap<String, Container> containers, Integer numOfPorts) {
+    public Planet(String name, HashMap<String, Container> containers, Integer numOfDocks) {
         super(name, containers);
-        this.numOfPorts = numOfPorts;
+        this.numOfDocks = numOfDocks;
         this.docks = new LinkedHashSet<>();
     }
 
@@ -37,7 +35,7 @@ public class Planet extends Party {
             }
             return true;
         }
-        if(docks.size() > numOfPorts) {
+        if(docks.size() > numOfDocks) {
             throw new TransactionException("Couldn't dock "+spaceship.getName()+" on "+getName()+". "
                     +this.getName()+" is full");
         }
@@ -63,37 +61,11 @@ public class Planet extends Party {
     public void undockAllAndMoveLine() {
         Integer i = 0;
         Iterator<Spaceship> iterator = docks.iterator();
-        while(iterator.hasNext() && i < numOfPorts){
+        while(iterator.hasNext() && i < numOfDocks){
             Spaceship spaceship = iterator.next();
             docks.remove(spaceship);
             spaceship.setDocked(false);
             i++;
         }
-    }
-
-    public Boolean sell(Spaceship spaceship, Product product){
-        // @TODO
-        return true;
-    }
-
-    public Boolean buy(Spaceship spaceship, Product product){
-        // @TODO
-        return true;
-    }
-
-    public Integer getNumOfPorts() {
-        return numOfPorts;
-    }
-
-    public void setNumOfPorts(Integer numOfPorts) {
-        this.numOfPorts = numOfPorts;
-    }
-
-    public LinkedHashSet<Spaceship> getDocks() {
-        return docks;
-    }
-
-    public void setDocks(LinkedHashSet<Spaceship> docks) {
-        this.docks = docks;
     }
 }
