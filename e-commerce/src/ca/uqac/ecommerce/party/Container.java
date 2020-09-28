@@ -22,28 +22,12 @@ public class Container {
         return 0;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
     public Integer getLoad() {
         return load;
-    }
-
-    public void setLoad(Integer load) {
-        this.load = load;
     }
 
     @Override
