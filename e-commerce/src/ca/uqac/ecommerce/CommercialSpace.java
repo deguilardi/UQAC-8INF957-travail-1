@@ -34,11 +34,11 @@ public class CommercialSpace {
     public CommercialSpace(){
         // Init products
         // These are the products available in this commercial space
-        products.put(GRAVEL, new Product(GRAVEL, 10, 1.0f, Product.Menacing.REGULAR));
-        products.put(TIRES, new Product(TIRES, 3, 12.75f, Product.Menacing.REGULAR));
-        products.put(PAPER, new Product(PAPER, 7, 4.9f, Product.Menacing.REGULAR));
-        products.put(ACID, new Product(ACID, 4, 13.9f, Product.Menacing.DANGEROUS));
-        products.put(GAS, new Product(GAS, 1, 7.5f, Product.Menacing.DANGEROUS));
+        products.put(GRAVEL, new Product(GRAVEL, Product.Menacing.REGULAR));
+        products.put(TIRES, new Product(TIRES, Product.Menacing.REGULAR));
+        products.put(PAPER, new Product(PAPER, Product.Menacing.REGULAR));
+        products.put(ACID, new Product(ACID, Product.Menacing.DANGEROUS));
+        products.put(GAS, new Product(GAS, Product.Menacing.DANGEROUS));
     }
 
     public void performTransaction(String sellerName, String buyerName, String spaceshipName, String productName){
