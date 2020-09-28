@@ -19,16 +19,8 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Menacing getMenacing() {
         return menacing;
-    }
-
-    public void setMenacing(Menacing menacing) {
-        this.menacing = menacing;
     }
 
     @Override
