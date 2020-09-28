@@ -20,8 +20,6 @@ import java.util.HashMap;
  */
 public class Spaceship extends Party {
 
-    private Integer totalCapacity;
-    private Integer currentLoad;
     private Route route;
     private Boolean docked = false;
 
@@ -48,36 +46,6 @@ public class Spaceship extends Party {
 
     public Spaceship(String name, HashMap<String, Container> containers) {
         super(name, containers);
-    }
-
-    private Integer calculateTotalCapacity(){
-        // @TODO
-        return totalCapacity;
-    }
-
-    private Integer calculateCurrentLoadCapacity(){
-        // @TODO
-        return currentLoad;
-    }
-
-    public Integer getTotalCapacity() {
-        return totalCapacity;
-    }
-
-    public void setTotalCapacity(Integer totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
-
-    public Integer getCurrentLoad() {
-        return currentLoad;
-    }
-
-    public void setCurrentLoad(Integer currentLoad) {
-        this.currentLoad = currentLoad;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
     }
 
     public Boolean isDocked() {
