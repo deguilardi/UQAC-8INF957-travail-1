@@ -50,7 +50,7 @@ public class Container {
     public String toString() {
         return new StringBuilder()
                 .append(" | ").append(String.format("%-" + 9 + "s", product.getName()))
-                .append(" | ").append(String.format("%" + 7 + "s", capacity.toString())).append("T")
+                .append(" | ").append(String.format("%" + 9 + "s", capacity.toString())).append("T")
                 .append(" | ").append(String.format("%" + 7 + "s", load.toString())).append("T |")
                 .toString();
     }

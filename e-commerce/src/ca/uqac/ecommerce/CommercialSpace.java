@@ -98,21 +98,13 @@ public class CommercialSpace {
         System.out.println("                .");
         System.out.println("                . report for cycle "+cycle);
         System.out.println("                .");
-        System.out.println("                . |-----------------------------------------------|");
-        System.out.println("                . |                  SPACESHIPS                   |");
-        System.out.println("                . |-----------------------------------------------|");
-        System.out.println("                . |  spaceship  |  product  | capacity |   load   |");
-        System.out.println("                . |-----------------------------------------------|");
-        spaceships.forEach((index, spaceship) -> spaceship.report());
-        System.out.println("                . |-----------------------------------------------|");
         System.out.println("                .");
-        System.out.println("                . |-----------------------------------------------|");
-        System.out.println("                . |                    PLANETS                    |");
-        System.out.println("                . |-----------------------------------------------|");
-        System.out.println("                . |   planet    |  product  | capacity |   load   |");
-        System.out.println("                . |-----------------------------------------------|");
+        System.out.println("                .");
+        spaceships.forEach((index, spaceship) -> spaceship.report());
+        System.out.println("                .");
+        System.out.println("                .");
+        System.out.println("                .");
         planets.forEach((index, planet) -> planet.report());
-        System.out.println("                . |-----------------------------------------------|");
     }
 
     public <T extends Spaceship> void factorySpaceship(String name, Class<T> clazz, String[] productNames, Integer defCapacity, Integer defLoad){
@@ -136,5 +128,13 @@ public class CommercialSpace {
             containers.put(productName, new Container(products.get(productName), defCapacity, defLoad));
         }
         planets.put(name, new Planet(name, containers, numOfPorts));
+    }
+
+    public Planet getPlanetWithName(String name){
+        return planets.get(name);
+    }
+
+    public Planet getSpaceshipWithName(String name){
+        return planets.get(name);
     }
 }

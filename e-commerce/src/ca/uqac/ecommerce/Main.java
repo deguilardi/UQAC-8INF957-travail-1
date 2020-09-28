@@ -20,18 +20,20 @@ public class Main {
         commercialSpace.factoryPlanet(NEPTUNE, 3, new String[]{TIRES, ACID, GAS}, 20, 10);
         commercialSpace.factoryPlanet(MERCURY, 3, new String[]{TIRES, PAPER}, 20, 10);
         commercialSpace.factoryPlanet(SATURN, 3, new String[]{TIRES, PAPER}, 20, 10);
-        commercialSpace.report();
+//        commercialSpace.report();
 
         // Cycle
         commercialSpace.initNewCycle();
         commercialSpace.performTransaction(MARS, VENUS, CRUISE, GRAVEL);
         commercialSpace.performTransaction(VENUS, NEPTUNE, CRUISE, ACID);
-        commercialSpace.report();
+//        commercialSpace.report();
 
         // Cycle
         commercialSpace.initNewCycle();
         commercialSpace.performTransaction(VENUS, MARS, MILLENIAL, GRAVEL);
         commercialSpace.performTransaction(NEPTUNE, VENUS, CRUISE, ACID);
-        commercialSpace.report();
+//        commercialSpace.report();
+        commercialSpace.getPlanetWithName(VENUS).report();
+
     }
 }

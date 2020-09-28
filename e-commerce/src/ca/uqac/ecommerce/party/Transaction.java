@@ -45,4 +45,14 @@ public class Transaction {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(" | ").append(String.format("%-" + 8 + "s", sellerName))
+                .append(" | ").append(String.format("%" + 7 + "s", buyerName))
+                .append(" | ").append(String.format("%" + 9 + "s", productName))
+                .append(" | ").append(String.format("%" + 4 + "s", quantity)).append("T |")
+                .toString();
+    }
 }
