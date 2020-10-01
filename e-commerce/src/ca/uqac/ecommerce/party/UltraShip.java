@@ -6,8 +6,8 @@ public class UltraShip extends Spaceship{
 
     private Boolean backwardsActivate;
 
-    public UltraShip(String name, HashMap<String, Container> containers) {
-        super(name, containers);
+    public UltraShip(String name, HashMap<String, Container> containers, Route route) {
+        super(name, containers, route);
     }
 
     protected boolean toggleFlyBackwards(){

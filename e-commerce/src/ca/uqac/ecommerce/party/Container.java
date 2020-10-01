@@ -6,6 +6,17 @@ public class Container {
     private Integer capacity;
     private Integer load;
 
+    public Container(Product product) {
+        this.product = product;
+        this.load = 0;
+        if(product.getMenacing() == Product.Menacing.REGULAR) {
+            this.capacity = 50;
+        }
+        else{
+            this.capacity = 20;
+        }
+    }
+
     public Container(Product product, Integer capacity, Integer load) {
         this.product = product;
         this.capacity = capacity;
@@ -13,13 +24,21 @@ public class Container {
     }
 
     public Integer loadFrom(Container from){
-        if(this.capacity - this.load >= from.load){
-            Integer output = from.load;
-            this.load += from.load;
-            from.load = 0;
+        if(getCapacityLeft() >= getLoadUnloadMaxCapacity()){
+            Integer output = getLoadUnloadMaxCapacity();
+            this.load += output;
+            from.load -= output;
             return output;
         }
         return 0;
+    }
+
+    public Integer getLoadUnloadMaxCapacity(){
+        return product.getMenacing() == Product.Menacing.REGULAR ? 25 : 10;
+    }
+
+    public Integer getCapacityLeft(){
+        return this.capacity - this.load;
     }
 
     public Integer getCapacity() {
@@ -28,6 +47,10 @@ public class Container {
 
     public Integer getLoad() {
         return load;
+    }
+
+    public Product getProduct(){
+        return product;
     }
 
     @Override

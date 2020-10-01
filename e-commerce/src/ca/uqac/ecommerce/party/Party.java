@@ -19,42 +19,28 @@ public class Party {
         this.report = new ScreenReport();
     }
 
-    public Integer load(Product product, Party from) throws TransactionException {
-        Container fromContainer = from.containers.get(product.getName());
-        if(fromContainer == null){
-            throw new TransactionException("Couldn't load "+this.name+". "
-                    +from.name+" doesn't have a container for "+product.getName());
-        }
-        Container toContainer = this.containers.get(product.getName());
-        if(toContainer == null){
-            throw new TransactionException("Couldn't load "+this.name+". "
-                    +this.name+" doesn't have a container for "+product.getName());
-        }
-        Integer output = toContainer.loadFrom(fromContainer);
-        if(output == 0){
-            throw new TransactionException("Couldn't load "+this.name+". "
-                    +this.name+" can't load "+fromContainer.getCapacity()+"T of "+product.getName()
-                    +", it has only "+(toContainer.getCapacity() - toContainer.getLoad())+"T left.");
-        }
-        return output;
-    }
+    public Integer load(Party from, String productNames[]) {
+        Integer output = 0;
+        for(String productName : productNames){
+            System.out.print("                . Loading " + this.name + " with " + productName + " from " + from.name + ". ");
+            Container fromContainer = from.containers.get(productName);
+            if(fromContainer == null){
+                System.out.println("ERROR. " + from.name + " doesn't have a proper container. Skipping.");
+                continue;
+            }
+            Container toContainer = this.containers.get(productName);
+            if(toContainer == null){
+                System.out.println("ERROR. " + this.name + " doesn't have a proper container. Skipping.");
+                continue;
+            }
+            Integer load = toContainer.loadFrom(fromContainer);
+            output += load;
+            if(load == 0){
+                System.out.println("ERROR. Not enough space. Need " +fromContainer.getLoadUnloadMaxCapacity()+ "T, has only " + toContainer.getCapacityLeft() + " left. Skipping.");
+                continue;
+            }
+            System.out.println("SUCCESS. loaded "+load+"T.");
 
-    public Integer unload(Product product, Party to) throws TransactionException {
-        Container fromContainer = this.containers.get(product.getName());
-        if(fromContainer == null){
-            throw new TransactionException("Couldn't unload "+this.name+". "
-                    +this.name+" doesn't have a container for "+product.getName());
-        }
-        Container toContainer = to.containers.get(product.getName());
-        if(toContainer == null){
-            throw new TransactionException("Couldn't unload "+this.name+". "
-                    +to.name+" doesn't have a container for "+product.getName());
-        }
-        Integer output = toContainer.loadFrom(fromContainer);
-        if(output == 0){
-            throw new TransactionException("Couldn't unload "+this.name+". "
-                    +to.name+" can't load "+fromContainer.getCapacity()+"T of "+product.getName()
-                    +", it has only "+(toContainer.getCapacity() - toContainer.getLoad())+"T left.");
         }
         return output;
     }

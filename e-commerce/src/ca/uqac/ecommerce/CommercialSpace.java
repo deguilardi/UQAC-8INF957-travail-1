@@ -1,11 +1,9 @@
 package ca.uqac.ecommerce;
 
 import ca.uqac.ecommerce.party.*;
-import sun.jvm.hotspot.memory.Space;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.function.Supplier;
 
 import static ca.uqac.ecommerce.party.PartyConstants.*;
 
@@ -26,6 +24,11 @@ import static ca.uqac.ecommerce.party.PartyConstants.*;
  */
 public class CommercialSpace {
 
+    public enum From{
+        ORIGIN_TO_DESTINATION,
+        DESTINATION_TO_ORIGIN
+    }
+
     private final HashMap<String, Product> products = new HashMap<>();
     private final HashMap<String, Spaceship> spaceships = new HashMap<>();
     private final HashMap<String, Planet> planets = new HashMap<>();
@@ -41,23 +44,29 @@ public class CommercialSpace {
         products.put(GAS, new Product(GAS, Product.Menacing.DANGEROUS));
     }
 
-    public void performTransaction(String sellerName, String buyerName, String spaceshipName, String productName){
-        Planet seller = planets.get(sellerName);
-        Planet buyer = planets.get(buyerName);
-        Product product = products.get(productName);
+    public void dispatchSpaceship(String spaceshipName, String[] productNames, From from) {
         Spaceship spaceship = spaceships.get(spaceshipName);
+        Planet origin, destination;
+        if(from.equals(From.ORIGIN_TO_DESTINATION)) {
+            origin = spaceship.getRoute().getOrigin();
+            destination = spaceship.getRoute().getDestination();
+        }
+        else{
+            origin = spaceship.getRoute().getDestination();
+            destination = spaceship.getRoute().getOrigin();
+        }
 
         System.out.println("                . ");
-        System.out.println("                . performing transaction. selling "+productName);
+        System.out.println("                . Dispatching spaceship");
         System.out.println("                . ");
         System.out.println("                .              /-------\\     \\\\----------------\\\\      /-------\\");
         StringBuilder sb = new StringBuilder()
                 .append("                .             | ")
-                .append(seller.getPaddedName(7))
+                .append(origin.getPaddedName(7))
                 .append(" |    ||>   ")
                 .append(spaceship.getPaddedName(10))
                 .append("   >>>   | ")
-                .append(buyer.getPaddedName(7))
+                .append(destination.getPaddedName(7))
                 .append(" |");
         System.out.println(sb);
         System.out.println("                .              \\-------/     //----------------//      \\-------/");
@@ -65,28 +74,27 @@ public class CommercialSpace {
 
         Transaction transaction = null;
         try {
-            seller.dock(spaceship);
-            spaceship.load(product, seller);
-            seller.undock(spaceship);
-            buyer.dock(spaceship);
-            Integer unloaded = spaceship.unload(product, buyer);
-            transaction = new Transaction(sellerName, buyerName, productName, unloaded);
-            System.out.println("                . Success!");
-        }
-        catch(TransactionException e){
+            origin.dock(spaceship);
+            spaceship.load(origin, productNames);
+            origin.undock(spaceship);
+            destination.dock(spaceship);
+            Integer unloaded = destination.load(spaceship, productNames);
+            transaction = new Transaction(origin.getName(), destination.getName(), unloaded);
+            System.out.println("                . Ship dispatchment completed!");
+        } catch (TransactionException e) {
             System.out.println("                . Exception: " + e);
         }
         System.out.println("                .");
 
         // Register transaction
-        if(transaction != null) {
-            seller.registerTransaction(transaction);
-            buyer.registerTransaction(transaction);
+        if (transaction != null) {
+            origin.registerTransaction(transaction);
+            destination.registerTransaction(transaction);
             spaceship.registerTransaction(transaction);
         }
     }
 
-    public void initNewCycle(){
+    public void nextCycle(){
         cycle++;
         System.out.println("");
         System.out.println("");
@@ -107,13 +115,14 @@ public class CommercialSpace {
         planets.forEach((index, planet) -> planet.report());
     }
 
-    public <T extends Spaceship> void factorySpaceship(String name, Class<T> clazz, String[] productNames, Integer defCapacity, Integer defLoad){
+    public <T extends Spaceship> void factorySpaceship(String name, Class<T> clazz, String[] productNames, String originName, String destinationName){
         HashMap<String, Container> containers = new HashMap<>();
         for (String productName : productNames) {
-            containers.put(productName, new Container(products.get(productName), defCapacity, defLoad));
+            containers.put(productName, new Container(products.get(productName)));
         }
+        Spaceship.Route route = new Spaceship.Route(planets.get(originName), planets.get(destinationName));
         try {
-            T spaceshipInstance = clazz.getDeclaredConstructor(String.class, HashMap.class).newInstance(name, containers);
+            T spaceshipInstance = clazz.getDeclaredConstructor(String.class, HashMap.class, Spaceship.Route.class).newInstance(name, containers, route);
             spaceships.put(name, spaceshipInstance);
         }
         catch (InstantiationException ignore) {}
@@ -122,10 +131,10 @@ public class CommercialSpace {
         catch (InvocationTargetException ignore) {}
     }
 
-    public void factoryPlanet(String name, Integer numOfPorts, String productNames[], Integer defCapacity, Integer defLoad){
+    public void factoryPlanet(String name, Integer numOfPorts, String productNames[], Integer capacity, Integer load){
         HashMap<String, Container> containers = new HashMap<>();
         for (String productName : productNames) {
-            containers.put(productName, new Container(products.get(productName), defCapacity, defLoad));
+            containers.put(productName, new Container(products.get(productName), capacity, load));
         }
         planets.put(name, new Planet(name, containers, numOfPorts));
     }
@@ -134,7 +143,7 @@ public class CommercialSpace {
         return planets.get(name);
     }
 
-    public Planet getSpaceshipWithName(String name){
-        return planets.get(name);
+    public Spaceship getSpaceshipWithName(String name){
+        return spaceships.get(name);
     }
 }

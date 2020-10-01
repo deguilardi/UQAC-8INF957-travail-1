@@ -13,13 +13,14 @@ public class ScreenReport implements Report{
         party.getContainers().forEach((product, container) -> {
             System.out.println("                ." + container.toString());
         });
-        System.out.println("                . |----------------------------------------|");
-        System.out.println("                . |              transactions              |");
-        System.out.println("                . |  seller  |  buyer  |  product  |  qty  |");
-        System.out.println("                . |----------------------------------------|");
+        System.out.println("                . |-----------------------------------|");
+        System.out.println("                . |            transactions           |");
+        System.out.println("                . |  seller   |    buyer   |    qty   |");
+        System.out.println("                . |-----------------------------------|");
         party.getTransactions().forEach((transaction) -> {
             System.out.println("                ." + transaction.toString());
         });
-        System.out.println("                . |----------------------------------------|");
+        System.out.println("                . |-----------------------------------|");
+        System.out.println("                . ");
     }
 }

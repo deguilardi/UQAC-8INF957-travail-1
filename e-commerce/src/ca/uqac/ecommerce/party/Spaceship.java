@@ -23,29 +23,27 @@ public class Spaceship extends Party {
     private Route route;
     private Boolean docked = false;
 
-    public class Route{
+    public static class Route{
         private Planet origin;
         private Planet destination;
+
+        public Route(Planet origin, Planet destination){
+            this.origin = origin;
+            this.destination = destination;
+        }
 
         public Planet getOrigin() {
             return origin;
         }
 
-        public void setOrigin(Planet origin) {
-            this.origin = origin;
-        }
-
         public Planet getDestination() {
             return destination;
         }
-
-        public void setDestination(Planet destination) {
-            this.destination = destination;
-        }
     }
 
-    public Spaceship(String name, HashMap<String, Container> containers) {
+    public Spaceship(String name, HashMap<String, Container> containers, Route route) {
         super(name, containers);
+        this.route = route;
     }
 
     public Boolean isDocked() {
@@ -54,5 +52,9 @@ public class Spaceship extends Party {
 
     public void setDocked(Boolean docked) {
         this.docked = docked;
+    }
+
+    public Route getRoute() {
+        return route;
     }
 }
