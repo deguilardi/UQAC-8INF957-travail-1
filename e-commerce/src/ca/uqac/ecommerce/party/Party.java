@@ -37,6 +37,17 @@ public class Party {
             output += load;
             if(load == 0){
                 System.out.println("ERROR. Not enough space. Need " +fromContainer.getLoadUnloadMaxCapacity()+ "T, has only " + toContainer.getCapacityLeft() + " left. Skipping.");
+                if(this instanceof Planet){
+                    ((Spaceship) from).banish();
+                    System.out.println("                . " + from.name + " banished forever!");
+                    System.out.println("                . \\\\    //");
+                    System.out.println("                .  \\\\  //");
+                    System.out.println("                .   \\\\//");
+                    System.out.println("                .   //\\\\");
+                    System.out.println("                .  //  \\\\");
+                    System.out.println("                . //    \\\\");
+                    break;
+                }
                 continue;
             }
             System.out.println("SUCCESS. loaded "+load+"T.");

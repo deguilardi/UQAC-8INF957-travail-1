@@ -1,5 +1,7 @@
 package ca.uqac.ecommerce.party;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.HashMap;
 
 import static ca.uqac.ecommerce.party.Transaction.State.*;
@@ -25,6 +27,7 @@ public class Spaceship extends Party {
     private Route route;
     private Boolean docked = false;
     private Transaction currentTransaction;
+    private Boolean banished = false;
 
     public static class Route{
         private Planet origin;
@@ -51,7 +54,12 @@ public class Spaceship extends Party {
 
     public void cycle(){
         if(currentTransaction == null){
-            System.out.println("[Spaceship] " + getName() + " is idle.");
+            if(banished) {
+                System.out.println("[Spaceship] " + getName() + " is banished.");
+            }
+            else {
+                System.out.println("[Spaceship] " + getName() + " is idle.");
+            }
             return;
         }
         switch (currentTransaction.getState()){
@@ -98,7 +106,13 @@ public class Spaceship extends Party {
     }
 
     public Boolean canTrasaction(){
-        return currentTransaction == null;
+        return banished == false && currentTransaction == null;
+    }
+
+    public void banish(){
+        currentTransaction.setState(ERR_UNLOAD);
+        currentTransaction = null;
+        banished = true;
     }
 
     @Override

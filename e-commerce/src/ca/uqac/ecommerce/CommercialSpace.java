@@ -101,7 +101,15 @@ public class CommercialSpace {
         planets.forEach((index, planet) -> planet.report());
     }
 
-    public <T extends Spaceship> void factorySpaceship(String name, Class<T> clazz, String[] productNames, String originName, String destinationName){
+    public <T extends Spaceship> void factorySpaceship(String name, String className, String[] productNames, String originName, String destinationName){
+        Class<T> clazz;
+        try {
+            clazz = (Class<T>)Class.forName("ca.uqac.ecommerce.party." + className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+
         HashMap<String, Container> containers = new HashMap<>();
         for (String productName : productNames) {
             containers.put(productName, new Container(products.get(productName)));
