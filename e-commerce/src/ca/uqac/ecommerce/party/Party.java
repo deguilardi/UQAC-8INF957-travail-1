@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Party {
 
-    private String name;
+    protected String name;
     private HashMap<String, Container> containers;
     private ArrayList<Transaction> transactions = new ArrayList<>();
     private Report report;
@@ -72,20 +72,12 @@ public class Party {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public HashMap<String, Container> getContainers() {
         return containers;
     }
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
-    }
-
-    public void setTransactions(ArrayList<Transaction> transactions) {
-        this.transactions = transactions;
     }
 
     @Override

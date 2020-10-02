@@ -55,20 +55,20 @@ public class Spaceship extends Party {
     public void cycle(){
         if(currentTransaction == null){
             if(banished) {
-                System.out.println("[Spaceship] " + getName() + " is banished.");
+                System.out.println("[Spaceship] " + name + " is banished.");
             }
             else {
-                System.out.println("[Spaceship] " + getName() + " is idle.");
+                System.out.println("[Spaceship] " + name + " is idle.");
             }
             return;
         }
         switch (currentTransaction.getState()){
             case STARTING:
-                System.out.println("[Spaceship] " + getName() + " is traveling to " + currentTransaction.getOrigin().getName());
+                System.out.println("[Spaceship] " + name + " is traveling to " + currentTransaction.getOrigin().name);
                 currentTransaction.setState(TRAV_ORIG);
                 break;
             case TRAV_ORIG:
-                System.out.println("[Spaceship] " + getName() + " is docking and loading from " + currentTransaction.getOrigin().getName() + ".");
+                System.out.println("[Spaceship] " + name + " is docking and loading from " + currentTransaction.getOrigin().name + ".");
                 currentTransaction.setState(LOADING);
                 try {
                     currentTransaction.getOrigin().dock(this);
@@ -81,11 +81,11 @@ public class Spaceship extends Party {
                 }
                 break;
             case LOADING:
-                System.out.println("[Spaceship] " + getName() + " is traveling to " + currentTransaction.getDestination().getName() + ".");
+                System.out.println("[Spaceship] " + name + " is traveling to " + currentTransaction.getDestination().name + ".");
                 currentTransaction.setState(TRAV_DEST);
                 break;
             case TRAV_DEST:
-                System.out.println("[Spaceship] " + getName() + " is docking and unloading 1st half in " + currentTransaction.getDestination().getName() + ".");
+                System.out.println("[Spaceship] " + name + " is docking and unloading 1st half in " + currentTransaction.getDestination().name + ".");
                 currentTransaction.setState(UNL_HALF);
                 try {
                     currentTransaction.getDestination().dock(this);
@@ -97,7 +97,7 @@ public class Spaceship extends Party {
                 }
                 break;
             case UNL_HALF:
-                System.out.println("[Spaceship] " + getName() + " is unloading 2nd half in " + currentTransaction.getDestination().getName() + ".");
+                System.out.println("[Spaceship] " + name + " is unloading 2nd half in " + currentTransaction.getDestination().name + ".");
                 currentTransaction.getDestination().load(this, currentTransaction.getProductNames());
                 currentTransaction.setState(COMPLETED);
                 currentTransaction = null;

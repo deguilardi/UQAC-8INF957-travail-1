@@ -125,12 +125,12 @@ public class CommercialSpace {
         catch (InvocationTargetException ignore) {}
     }
 
-    public void factoryPlanet(String name, Integer numOfPorts, String productNames[], Integer capacity, Integer load){
+    public void factoryPlanet(String name, Integer numOfDocks, String productNames[], Integer capacity, Integer load){
         HashMap<String, Container> containers = new HashMap<>();
         for (String productName : productNames) {
             containers.put(productName, new Container(products.get(productName), capacity, load));
         }
-        planets.put(name, new Planet(name, containers, numOfPorts));
+        planets.put(name, new Planet(name, containers, numOfDocks));
     }
 
     public Planet getPlanetWithName(String name){
