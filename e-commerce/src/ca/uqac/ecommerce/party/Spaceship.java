@@ -2,6 +2,8 @@ package ca.uqac.ecommerce.party;
 
 import java.util.HashMap;
 
+import static ca.uqac.ecommerce.party.Transaction.State.*;
+
 /**
  * - There are several types (to simplify our example, let's say 3);
  * - Each ship can carry certain products determined during its creation
@@ -22,6 +24,7 @@ public class Spaceship extends Party {
 
     private Route route;
     private Boolean docked = false;
+    private Transaction currentTransaction;
 
     public static class Route{
         private Planet origin;
@@ -44,6 +47,64 @@ public class Spaceship extends Party {
     public Spaceship(String name, HashMap<String, Container> containers, Route route) {
         super(name, containers);
         this.route = route;
+    }
+
+    public void cycle(){
+        if(currentTransaction == null){
+            System.out.println("[Spaceship] " + getName() + " is idle.");
+            return;
+        }
+        switch (currentTransaction.getState()){
+            case STARTING:
+                System.out.println("[Spaceship] " + getName() + " is traveling to " + currentTransaction.getOrigin().getName());
+                currentTransaction.setState(TRAV_ORIG);
+                break;
+            case TRAV_ORIG:
+                System.out.println("[Spaceship] " + getName() + " is docking and loading from " + currentTransaction.getOrigin().getName() + ".");
+                currentTransaction.setState(LOADING);
+                try {
+                    currentTransaction.getOrigin().dock(this);
+                    load(currentTransaction.getOrigin(), currentTransaction.getProductNames());
+                    currentTransaction.getOrigin().undock(this);
+                } catch (TransactionException e) {
+                    System.out.println("                . Exception: " + e);
+                    currentTransaction.setState(ERR_LOAD);
+                    currentTransaction = null;
+                }
+                break;
+            case LOADING:
+                System.out.println("[Spaceship] " + getName() + " is traveling to " + currentTransaction.getDestination().getName() + ".");
+                currentTransaction.setState(TRAV_DEST);
+                break;
+            case TRAV_DEST:
+                System.out.println("[Spaceship] " + getName() + " is docking and unloading 1st half in " + currentTransaction.getDestination().getName() + ".");
+                currentTransaction.setState(UNL_HALF);
+                try {
+                    currentTransaction.getDestination().dock(this);
+                    currentTransaction.getDestination().load(this, currentTransaction.getProductNames());
+                } catch (TransactionException e) {
+                    System.out.println("                . Exception: " + e);
+                    currentTransaction.setState(ERR_UNLOAD);
+                    currentTransaction = null;
+                }
+                break;
+            case UNL_HALF:
+                System.out.println("[Spaceship] " + getName() + " is unloading 2nd half in " + currentTransaction.getDestination().getName() + ".");
+                currentTransaction.getDestination().load(this, currentTransaction.getProductNames());
+                currentTransaction.setState(COMPLETED);
+                currentTransaction = null;
+                break;
+        }
+    }
+
+    public Boolean canTrasaction(){
+        return currentTransaction == null;
+    }
+
+    @Override
+    public void registerTransaction(Transaction transaction) {
+        super.registerTransaction(transaction);
+        currentTransaction = transaction;
     }
 
     public Boolean isDocked() {

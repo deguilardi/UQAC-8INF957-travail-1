@@ -21,22 +21,23 @@ public class Main {
         commercialSpace.factorySpaceship(CRUISE, CruiseShip.class, new String[]{GRAVEL, GAS, PAPER}, VENUS, MARS);
         commercialSpace.factorySpaceship(MILLENIAL, MillenialShip.class, new String[]{GRAVEL, TIRES, PAPER}, MERCURY, SATURN);
         commercialSpace.factorySpaceship(ULTRA, UltraShip.class, new String[]{TIRES, ACID, GAS}, MARS, NEPTUNE);
-//        commercialSpace.report();
 
         // Cycle
-        commercialSpace.nextCycle();
         commercialSpace.dispatchSpaceship(CRUISE, new String[]{GRAVEL, GAS}, From.ORIGIN_TO_DESTINATION);
-//        commercialSpace.report();
-        commercialSpace.getSpaceshipWithName(CRUISE).report();
-
-//        // Cycle
-//        commercialSpace.nextCycle();
-//        commercialSpace.dispatchSpaceship(CRUISE, new String[]{GRAVEL, GAS}, From.DESTINATION_TO_ORIGIN);
-//        commercialSpace.getPlanetWithName(VENUS).report();
-//
-//        // Cycle
-//        commercialSpace.nextCycle();
-//        commercialSpace.dispatchSpaceship(CRUISE, new String[]{GRAVEL, GAS}, From.DESTINATION_TO_ORIGIN);
+        commercialSpace.dispatchSpaceship(MILLENIAL, new String[]{TIRES, PAPER}, From.ORIGIN_TO_DESTINATION);
+        commercialSpace.cycle();
+        commercialSpace.cycle();
+        commercialSpace.cycle();
+        commercialSpace.dispatchSpaceship(ULTRA, new String[]{GRAVEL, GAS}, From.ORIGIN_TO_DESTINATION);
+        commercialSpace.cycle();
+        commercialSpace.cycle();
+        commercialSpace.dispatchSpaceship(CRUISE, new String[]{GRAVEL, GAS}, From.DESTINATION_TO_ORIGIN);
+        commercialSpace.cycle();
+        commercialSpace.cycle();
+        commercialSpace.dispatchSpaceship(MILLENIAL, new String[]{GRAVEL, PAPER}, From.DESTINATION_TO_ORIGIN);
+        commercialSpace.cycle();
+        commercialSpace.report();
+//        commercialSpace.getSpaceshipWithName(CRUISE).report();
 //        commercialSpace.getPlanetWithName(VENUS).report();
 
     }

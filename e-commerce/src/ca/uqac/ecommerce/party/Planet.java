@@ -1,7 +1,6 @@
 package ca.uqac.ecommerce.party;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 /**
@@ -56,16 +55,5 @@ public class Planet extends Party {
         docks.remove(spaceship);
         spaceship.setDocked(false);
         return true;
-    }
-
-    public void undockAllAndMoveLine() {
-        Integer i = 0;
-        Iterator<Spaceship> iterator = docks.iterator();
-        while(iterator.hasNext() && i < numOfDocks){
-            Spaceship spaceship = iterator.next();
-            docks.remove(spaceship);
-            spaceship.setDocked(false);
-            i++;
-        }
     }
 }

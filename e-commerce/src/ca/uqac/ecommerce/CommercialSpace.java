@@ -72,34 +72,20 @@ public class CommercialSpace {
         System.out.println("                .              \\-------/     //----------------//      \\-------/");
         System.out.println("                . ");
 
-        Transaction transaction = null;
-        try {
-            origin.dock(spaceship);
-            spaceship.load(origin, productNames);
-            origin.undock(spaceship);
-            destination.dock(spaceship);
-            Integer unloaded = destination.load(spaceship, productNames);
-            transaction = new Transaction(origin.getName(), destination.getName(), unloaded);
-            System.out.println("                . Ship dispatchment completed!");
-        } catch (TransactionException e) {
-            System.out.println("                . Exception: " + e);
+        if(!spaceship.canTrasaction()){
+            System.out.println("                . Can't dispatch " + spaceshipName + " as it is not idle.");
+            return;
         }
-        System.out.println("                .");
 
-        // Register transaction
-        if (transaction != null) {
-            origin.registerTransaction(transaction);
-            destination.registerTransaction(transaction);
-            spaceship.registerTransaction(transaction);
-        }
+        Transaction.factory(spaceship, productNames, origin, destination);
     }
 
-    public void nextCycle(){
+    public void cycle(){
         cycle++;
         System.out.println("");
         System.out.println("");
-        System.out.println("[CommercialSpace] ========================= initializing cycle "+cycle+" =========================");
-        planets.forEach((index, planet) -> planet.undockAllAndMoveLine());
+        System.out.println("[CommercialSpace] ============================== cycle "+cycle+" ==============================");
+        spaceships.forEach((index, spaceship) -> spaceship.cycle());
     }
 
     public void report(){
