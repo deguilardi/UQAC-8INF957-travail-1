@@ -9,7 +9,7 @@ Original french instructions file can be found [here](https://raw.githubusercont
 * Teamwork of 1 or 2
 * Submission date: week 6 (October 6)
 * Language: Java
-* Discount by Teams
+* Send on MS Teams
   * A single project, compiled and functional
   * The class diagram of your solution
 
@@ -88,3 +88,9 @@ View reports
 * The objective of this project is to validate the student's ability to put into practice the concepts of abstraction, cutting objects, management of personalized exeptions but above all your competence to create a safe, reliable and easy to understandable model;
 * Provide the class diagram (png / jpg) as well as a functional project;
 * Do not hesitate to add proof of operation of your project (screenshots or files), just in case I (prof. Eric) am not able to run it.
+
+
+## Working examples
+
+![Working example 1](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-2/main/assets/proof it works 1.png)
+![Working example 1](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-2/main/assets/proof it works 2.png)
