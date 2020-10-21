@@ -92,5 +92,5 @@ View reports
 
 ## Working examples
 
-![Working example 1](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-2/main/assets/proof it works 1.png)
-![Working example 1](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-2/main/assets/proof it works 2.png)
+![Working example 1](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-2/main/assets/proof%20it%20works%201.png)
+![Working example 1](https://raw.githubusercontent.com/deguilardi/uqac-8INF957-travail-2/main/assets/proof%20it%20works%202.png)
